@@ -1,28 +1,29 @@
 <div class="col-sm-6">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img style="width: 100%; height: 300px" src="{{ object.image.url }}" alt=""/>
-                                            <h2>{{ object.price }} تومان </h2>
-                                            <p>{{ object.title }}</p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
-                                            <a class="btn btn-block btn-info"> جزییات</a>
-                                        </div>
-                                        <div class="product-overlay">
-                                            <div class="overlay-content">
-                                                <h2>{{ object.price }}</h2>
-                                                <p>{{ object.description | truncatewords:40 }}</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="choose">
-                                        <ul class="nav nav-pills nav-justified">
-                                            <li><a href=""><i class="fa fa-plus-square"></i>لیست علاقه مندی ها</a></li>
-                                            <li><a href=""><i class="fa fa-plus-square"></i>مقایسه</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="product-image-wrapper">
+        <div class="single-products">
+            <div class="productinfo text-center">
+                <img style="width: 100%; height: 300px" src="{{ object.image.url }}" alt=""/>
+
+                <h2> قیمت :{{ object.price }} ریال </h2>
+                <p>{{ object.title }}</p>
+                <a href="#" class="btn btn-default add-to-cart"><i
+                        class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                <a href="{% url 'productdetail' slug=object.slug %}" class="btn btn-block btn-info"> جزییات</a>
+            </div>
+            <div class="product-overlay">
+                <div class="overlay-content">
+                    <h2>{{ object.price }}</h2>
+                    <p>{{ object.description | truncatewords:40 }}</p>
+                    <a href="#" class="btn btn-default add-to-cart"><i
+                            class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                </div>
+            </div>
+        </div>
+        <div class="choose">
+            <ul class="nav nav-pills nav-justified">
+                <li><a href=""><i class="fa fa-plus-square"></i>لیست علاقه مندی ها</a></li>
+                <li><a href=""><i class="fa fa-plus-square"></i>مقایسه</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
