@@ -15,8 +15,9 @@ class Product(models.Model):
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
-    slug = models.SlugField(null=True, blank=True, verbose_name='شناسه')
-    active = models.BooleanField(default=False, verbose_name='موجود')
+    slug = models.SlugField(unique=True, blank=True, verbose_name='شناسه')
+    active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = ProductManager()
 
