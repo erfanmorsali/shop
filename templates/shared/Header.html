@@ -51,10 +51,10 @@
                             <li><a href="#"><i class="fa fa-star"></i> لیست علاقه مندی ها</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سبد خریـد</a></li>
                             {% if not request.user.is_authenticated %}
-                                <li><a href="{% url 'login' %}" ><i class="fa fa-lock"></i> ورود</a></li>
-                                <li><a href="{% url 'register' %}" ><i class="fa fa-lock"></i> ثبت نام</a></li>
+                                <li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> ورود</a></li>
+                                <li><a href="{% url 'register' %}"><i class="fa fa-lock"></i> ثبت نام</a></li>
                             {% else %}
-                                <li><a href="admin/logout" ><i class="fa fa-lock"></i> خروج</a></li>
+                                <li><a href="admin/logout"><i class="fa fa-lock"></i> خروج</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -67,11 +67,9 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-3">
-                    <div class="search_box pull-left">
-                        <input type="text" placeholder="جستـجو"/>
-                    </div>
-                </div>
+
+                {% include 'shared/search_bar.html' %}
+
 
                 <div class="col-sm-9">
                     <div class="navbar-header">
