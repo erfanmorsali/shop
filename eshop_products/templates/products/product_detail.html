@@ -110,54 +110,11 @@
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade" id="details" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{% static 'images/home/gallery.jpg' %}" alt="" />
-												<h2>1.250.000 ريال</h2>
-												<p>توضیحات کوتاه محصول</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{% static 'images/home/gallery.jpg' %}" alt="" />
-												<h2>1.250.000 ريال</h2>
-												<p>توضیحات کوتاه محصول</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{% static 'images/home/gallery.jpg' %}" alt="" />
-												<h2>1.250.000 ريال</h2>
-												<p>توضیحات کوتاه محصول</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{% static 'images/home/gallery.jpg' %}" alt="" />
-												<h2>1.250.000 ريال</h2>
-												<p>توضیحات کوتاه محصول</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</button>
-											</div>
-										</div>
-									</div>
-								</div>
+								<div class="col-md-12">
+                                    <p>
+                                        {{ object.description | linebreaksbr }}
+                                    </p>
+                                </div>
 							</div>
 
 							<div class="tab-pane fade" id="companyprofile" >
@@ -269,7 +226,7 @@
 										<li><a href=""><i class="fa fa-clock-o"></i>12:41 ب . ظ</a></li>
 										<li><a href=""><i class="fa fa-calendar-o"></i>29 تیـر 1397</a></li>
 									</ul>
-									<p>{{ object.description }}</p>
+									
 									<p><b>نظـر خود را بنویسیـد</b></p>
 
 									<form action="#">
