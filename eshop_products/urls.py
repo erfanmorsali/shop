@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from eshop_products.views import ProductList, SearchProduct , ProductDetail
+from eshop_products.views import ProductList, SearchProduct, ProductDetail
 
 urlpatterns = [
     path('products/', ProductList.as_view(), name='productlist'),

@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
 from django.db.models import Q
+from eshop_products_category.models import ProductCategory
 
 
 # Create your models here.
@@ -11,8 +12,13 @@ class ProductManager(models.Manager):
         return self.get_queryset().filter(active=True)
 
     def search(self, query):
-        lookup = Q(title__icontains=query) | Q(description__icontains=query)
-        return self.get_queryset().filter(lookup, active=True)
+        lookup = (
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(tag__title__icontains=query)
+
+        )
+        return self.get_queryset().filter(lookup, active=True).distinct()
 
 
 class Product(models.Model):
@@ -20,9 +26,10 @@ class Product(models.Model):
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
-    slug = models.SlugField(unique=True, blank=True, verbose_name='شناسه')
+    slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
     timestamp = models.DateTimeField(auto_now_add=True)
+    catagory = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
 
     objects = ProductManager()
 
@@ -39,4 +46,4 @@ def product_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 
-pre_save.connect(product_pre_save_receiver, Product)
+pre_save.connect(receiver=product_pre_save_receiver, sender=Product)
