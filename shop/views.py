@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from eshop_slider.models import Slider
 
 def header(request, *args, **kwargs):
     context = {}
@@ -12,5 +12,8 @@ def footer(request):
 
 
 def home_page(request):
-    context = {}
+    sliders = Slider.objects.all()
+    context = {
+        'sliders' : sliders
+    }
     return render(request, 'home_page.html', context)

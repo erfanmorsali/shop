@@ -20,6 +20,9 @@ class ProductManager(models.Manager):
         )
         return self.get_queryset().filter(lookup, active=True).distinct()
 
+    def get_product_by_category(self,category_name):
+        return self.get_queryset().filter(catagory__name__iexact=category_name , active=True)
+
 
 class Product(models.Model):
     title = models.CharField(max_length=40, verbose_name='عنوان')
