@@ -6,9 +6,9 @@ from eshop_products.views import ProductList, SearchProduct, ProductDetail, Prod
 
 urlpatterns = [
     path('products/', ProductList.as_view(), name='productlist'),
-    path('products/<slug>', ProductDetail.as_view(), name='productdetail'),
-    path('products/list/search', SearchProduct.as_view()),
-    path('products/categories/<category_name>', ProductListByCategory.as_view()),
+    path('products/<pk>/<slug>', ProductDetail.as_view(), name='productdetail'),
+    path('products/search', SearchProduct.as_view()),
+    path('products/<category_name>', ProductListByCategory.as_view()),
     path('product_categories_partial', product_categories_partial, name='product_categories_partial'),
 
 ]

@@ -20,8 +20,8 @@ class ProductManager(models.Manager):
         )
         return self.get_queryset().filter(lookup, active=True).distinct()
 
-    def get_product_by_category(self,category_name):
-        return self.get_queryset().filter(catagory__name__iexact=category_name , active=True)
+    def get_product_by_category(self, category_name):
+        return self.get_queryset().filter(catagory__name__iexact=category_name, active=True)
 
 
 class Product(models.Model):
@@ -50,3 +50,16 @@ def product_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(receiver=product_pre_save_receiver, sender=Product)
+
+
+class ProductGallery(models.Model):
+    title = models.CharField(max_length=150, verbose_name='عنوان')
+    image = models.ImageField(upload_to='products/galleries/', verbose_name='تصویر')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'تصاویر'
+        verbose_name = 'تصویر'

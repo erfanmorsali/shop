@@ -1,20 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-</head>
-<body>
 <div class="col-sm-3">
     <div class="search_box pull-left">
-        <form action="/products/list/search" method="get">
+        <form action="/products/search" method="get">
             <input type="text" placeholder="جستـجو" value="{{ request.GET.q }}" name="q"/>
             <br>
             <button type="submit" class="btn-block btn-warning"> جستجو </button>
         </form>
     </div>
 </div>
-</body>
-</html>

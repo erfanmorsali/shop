@@ -1,8 +1,11 @@
+import itertools
+
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Product
+from .models import Product, ProductGallery
 from django.http import Http404
 from eshop_products_category.models import ProductCategory
+
 
 # Create your views here.
 
@@ -17,9 +20,32 @@ class ProductList(ListView):
         return context
 
 
+def my_grouper(n, iterable):
+    args = [iter(iterable)] * n
+    return ([e for e in t if e is not None] for t in itertools.zip_longest(*args))
+
+
 class ProductDetail(DetailView):
-    queryset = Product.objects.get_active_product()
     template_name = 'products/product_detail.html'
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        slug = self.kwargs['slug']
+        product = Product.objects.filter(active=True, id=pk, slug=slug)
+        if product is not None:
+            return product
+        else:
+            raise Http404('محصول مورد نظر یافت نشد')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        product_id = self.kwargs['pk']
+        galleries = ProductGallery.objects.filter(product_id=product_id)
+        grouped_galleries = list(my_grouper(3 , galleries))
+        print(grouped_galleries)
+
+        context['galleries'] = grouped_galleries
+        return context
 
 
 class SearchProduct(ListView):
@@ -51,6 +77,6 @@ class ProductListByCategory(ListView):
 def product_categories_partial(request):
     categories = ProductCategory.objects.all()
     context = {
-        'categories' : categories
+        'categories': categories
     }
-    return render(request , 'products/product_categories_partial.html' , context)
+    return render(request, 'products/product_categories_partial.html', context)

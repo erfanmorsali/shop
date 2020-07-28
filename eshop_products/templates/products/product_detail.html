@@ -1,7 +1,7 @@
 {% extends 'shared/Main_Layout.html' %}
 {% load static %}
 {% block content %}
-{% load render_partial %}
+    {% load render_partial %}
 
 
     <section>
@@ -19,21 +19,16 @@
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
-                                    <div class="item active">
-                                        <a href=""><img src="{% static 'images/product-details/similar1.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar2.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar3.jpg' %}" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                        <a href=""><img src="{% static 'images/product-details/similar1.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar2.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar3.jpg' %}" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                        <a href=""><img src="{% static 'images/product-details/similar1.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar2.jpg' %}" alt=""></a>
-                                        <a href=""><img src="{% static 'images/product-details/similar3.jpg' %}" alt=""></a>
-                                    </div>
+                                    {% for gallery in galleries %}
+                                        <div class="item {{ forloop.first|yesno:'active,' }}">
+                                            {% for product_gallery in gallery %}
+                                                <a href=""><img src="{{ product_gallery.image.url }}"
+                                                                alt="{{ product_gallery.title }}"
+                                                                style="width: 85px ; height: 85px"></a>
+                                            {% endfor %}
+
+                                        </div>
+                                    {% endfor %}
 
                                 </div>
 
@@ -373,10 +368,9 @@
 
                 <div class="col-sm-3">
                     <div class="left-sidebar">
-                        <h2>دسته بندی محصولات</h2>
-                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            {% render_partial 'product_categories_partial' %}
-                        </div><!--/category-productsr-->
+
+                        {% render_partial 'product_categories_partial' %}
+
 
                         <div class="shipping text-center"><!--shipping-->
                             <img src="{% static 'images/home/shipping.jpg' %}" alt=""/>
