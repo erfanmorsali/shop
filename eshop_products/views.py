@@ -25,27 +25,26 @@ def my_grouper(n, iterable):
     return ([e for e in t if e is not None] for t in itertools.zip_longest(*args))
 
 
-class ProductDetail(DetailView):
-    template_name = 'products/product_detail.html'
+def product_detail(request, *args, **kwargs):
+    product_id = kwargs['product_id']
+    slug = kwargs['slug']
+    product = Product.objects.get_product_by_id(product_id, slug)
 
-    def get_queryset(self):
-        pk = self.kwargs['pk']
-        slug = self.kwargs['slug']
-        product = Product.objects.filter(active=True, id=pk, slug=slug)
-        if product is not None:
-            return product
-        else:
-            raise Http404('محصول مورد نظر یافت نشد')
+    if product is None:
+        raise Http404('محصولی با این مشخصات یافت نشد')
 
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetail, self).get_context_data(**kwargs)
-        product_id = self.kwargs['pk']
-        galleries = ProductGallery.objects.filter(product_id=product_id)
-        grouped_galleries = list(my_grouper(3 , galleries))
-        print(grouped_galleries)
+    galeries = ProductGallery.objects.filter(product_id=product_id)
+    grouped_galeries = list(my_grouper(3 , galeries))
 
-        context['galleries'] = grouped_galleries
-        return context
+    related_products = Product.objects.get_queryset().filter(category__product=product).distinct()
+    grouped_related_products = list(my_grouper(3,related_products))
+
+    context = {
+        'product': product,
+        'galeries' : grouped_galeries ,
+        'related_products' : grouped_related_products
+    }
+    return render(request, 'products/product_detail.html', context)
 
 
 class SearchProduct(ListView):

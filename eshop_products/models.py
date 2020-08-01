@@ -11,6 +11,13 @@ class ProductManager(models.Manager):
     def get_active_product(self):
         return self.get_queryset().filter(active=True)
 
+    def get_product_by_id(self, product_id, slug):
+        qs = self.get_queryset().filter(active=True, id=product_id, slug=slug)
+        if qs.count() == 1:
+            return qs.first()
+        else:
+            return None
+
     def search(self, query):
         lookup = (
                 Q(title__icontains=query) |
@@ -21,7 +28,7 @@ class ProductManager(models.Manager):
         return self.get_queryset().filter(lookup, active=True).distinct()
 
     def get_product_by_category(self, category_name):
-        return self.get_queryset().filter(catagory__name__iexact=category_name, active=True)
+        return self.get_queryset().filter(category__name__iexact=category_name, active=True)
 
 
 class Product(models.Model):
@@ -32,7 +39,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
     timestamp = models.DateTimeField(auto_now_add=True)
-    catagory = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
+    category = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
 
     objects = ProductManager()
 
