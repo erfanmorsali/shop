@@ -38,7 +38,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
     slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True , verbose_name='تاریخ')
     category = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
 
     objects = ProductManager()

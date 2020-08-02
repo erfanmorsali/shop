@@ -6,6 +6,8 @@ from .models import Product, ProductGallery
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'title', 'price', 'slug', 'active']
+    list_filter = ('timestamp' , 'active')
+    search_fields = ('title' , 'description')
 
     class Meta:
         Model = Product
