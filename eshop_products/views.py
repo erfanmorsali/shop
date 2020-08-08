@@ -28,7 +28,7 @@ def my_grouper(n, iterable):
 def product_detail(request, *args, **kwargs):
     product_id = kwargs['product_id']
     slug = kwargs['slug']
-    product = Product.objects.get_product_by_id(product_id, slug)
+    product = Product.objects.get_product_detail(product_id, slug)
 
     if product is None:
         raise Http404('محصولی با این مشخصات یافت نشد')

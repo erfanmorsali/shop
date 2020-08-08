@@ -11,7 +11,7 @@ class ProductManager(models.Manager):
     def get_active_product(self):
         return self.get_queryset().filter(active=True)
 
-    def get_product_by_id(self, product_id, slug):
+    def get_product_detail(self, product_id, slug):
         qs = self.get_queryset().filter(active=True, id=product_id, slug=slug)
         if qs.count() == 1:
             return qs.first()
