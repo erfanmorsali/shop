@@ -20,6 +20,8 @@ def login_page(request):
         if user is not None:
             login(request, user)
             context[form] = LoginForm()
+            if request.user.is_superuser:
+                return redirect('http://127.0.0.1:8000/admin/')
             return redirect('/')
         else:
             form.add_error('username', 'کاربری با این مشخصات وجود ندارد')
