@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
+from django.utils.html import format_html
 from django.db.models import Q
 from eshop_products_category.models import ProductCategory
 
@@ -38,7 +39,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
     slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
-    timestamp = models.DateTimeField(auto_now_add=True , verbose_name='تاریخ')
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     category = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
 
     objects = ProductManager()
@@ -50,6 +51,9 @@ class Product(models.Model):
         verbose_name_plural = 'محصولات'
         verbose_name = 'محصول'
 
+    def thumbnail_pic(self):
+        return format_html(f'<img width=100 height=80 src={self.image.url} />')
+    thumbnail_pic.short_description = 'تصویر'
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:

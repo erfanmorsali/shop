@@ -31,7 +31,7 @@ make_active.short_description = "موجود کردن محصولات انتخاب
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'title', 'price', 'slug', 'active']
+    list_display = ['__str__', 'thumbnail_pic', 'price', 'slug', 'active']
     list_filter = ('timestamp', 'active')
     search_fields = ('title', 'description')
     actions = [make_inactive, make_active]
