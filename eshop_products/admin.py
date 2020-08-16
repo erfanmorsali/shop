@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductGallery
+from .models import Product, ProductGallery, ProductComment
 from django.contrib import messages
 from django.utils.translation import ngettext
 
@@ -40,5 +40,14 @@ class ProductAdmin(admin.ModelAdmin):
         Model = Product
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'email', 'product', 'is_read']
+    list_editable = ['is_read']
+
+    class Meta:
+        Model = ProductComment
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductGallery)
+admin.site.register(ProductComment, CommentAdmin)

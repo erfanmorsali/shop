@@ -2,7 +2,8 @@ import itertools
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Product, ProductGallery
+from .forms import CommentForm
+from .models import Product, ProductGallery, ProductComment
 from django.http import Http404
 from eshop_products_category.models import ProductCategory
 
@@ -34,16 +35,24 @@ def product_detail(request, *args, **kwargs):
         raise Http404('محصولی با این مشخصات یافت نشد')
 
     galeries = ProductGallery.objects.filter(product_id=product_id)
-    grouped_galeries = list(my_grouper(3 , galeries))
+    grouped_galeries = list(my_grouper(3, galeries))
 
     related_products = Product.objects.get_queryset().filter(category__product=product).distinct()
-    grouped_related_products = list(my_grouper(3,related_products))
+    grouped_related_products = list(my_grouper(3, related_products))
 
+    comment_form = CommentForm(request.POST or None)
     context = {
         'product': product,
-        'galeries' : grouped_galeries ,
-        'related_products' : grouped_related_products
+        'galeries': grouped_galeries,
+        'related_products': grouped_related_products,
+        'comment_form': comment_form
     }
+
+    if comment_form.is_valid():
+        full_name = comment_form.cleaned_data.get('full_name')
+        email = comment_form.cleaned_data.get('email')
+        message = comment_form.cleaned_data.get('message')
+        ProductComment.objects.create(full_name=full_name, email=email, message=message, product=product)
     return render(request, 'products/product_detail.html', context)
 
 
@@ -79,3 +88,4 @@ def product_categories_partial(request):
         'categories': categories
     }
     return render(request, 'products/product_categories_partial.html', context)
+

@@ -27,6 +27,7 @@ urlpatterns = [
     path('', home_page , name='home_page'),
     path('', include('eshop_products.urls')),
     path('', include('eshop_accounts.urls')),
+    path('', include('eshop_contact.urls')),
     path('admin/', admin.site.urls),
 ]
 

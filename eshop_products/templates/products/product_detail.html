@@ -241,21 +241,24 @@
                                     <p></p>
                                     <p><b>نظـر خود را بنویسیـد</b></p>
 
-                                    <form action="#">
-										<span>
-											<input type="text" placeholder="نام و نام خانوادگـی">
-											<input type="email" placeholder="آدرس ایمیـل">
-										</span>
-                                        <textarea name=""></textarea>
-                                        <b>رتبـه : </b> <img src="{% static 'images/product-details/rating.png' %}"
-                                                             alt="">
-                                        <button type="button" class="btn btn-default pull-left">
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+										{{ comment_form.full_name }}
+                                        {% for error in comment_form.full_name.errors %}
+                                            <p class="text-danger">{{ error }}</p>
+                                        {% endfor %}
+                                        <br>
+                                        {{ comment_form.email }}
+                                        {% for error in comment_form.email.errors %}
+                                            <p class="text-danger">{{ error }}</p>
+                                        {% endfor %}
+                                        {{ comment_form.message }}
+                                        <button type="submit" class="btn btn-info pull-left">
                                             ارسـال
                                         </button>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div><!--/category-tab-->
 

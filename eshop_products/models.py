@@ -53,7 +53,9 @@ class Product(models.Model):
 
     def thumbnail_pic(self):
         return format_html(f'<img width=100 height=80 src={self.image.url} />')
+
     thumbnail_pic.short_description = 'تصویر'
+
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
@@ -74,3 +76,18 @@ class ProductGallery(models.Model):
     class Meta:
         verbose_name_plural = 'تصاویر'
         verbose_name = 'تصویر'
+
+
+class ProductComment(models.Model):
+    full_name = models.CharField(max_length=150, verbose_name='نام و نام خانوادگی')
+    email = models.EmailField(max_length=200, verbose_name='آدرس ایمیل شما')
+    message = models.TextField(verbose_name='نظر شما')
+    is_read = models.BooleanField(default=False, verbose_name='خوانده شده / نشده')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, verbose_name='محصول')
+
+    def __str__(self):
+        return self.full_name
+
+    class Meta:
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظرات'
