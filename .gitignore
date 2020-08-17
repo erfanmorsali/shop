@@ -8,7 +8,6 @@
 *.pyc
 __pycache__/
 local_settings.py
-venv
 db.sqlite3
 db.sqlite3-journal
 media
@@ -69,6 +68,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+pytestdebug.log
 
 # Translations
 *.mo
@@ -84,6 +84,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+doc/_build/
 
 # PyBuilder
 target/
