@@ -6,6 +6,7 @@
 *.log
 *.pot
 *.pyc
+eshop_products/migrations/__pycache__/*.pyc
 __pycache__/
 local_settings.py
 db.sqlite3
