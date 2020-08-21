@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from eshop_setting.models import SiteSetting
 from .forms import ContactForm
 from .models import ContactUs
 
@@ -15,7 +17,10 @@ def contact_us(request):
         ContactUs.objects.create(full_name=full_name, email=email, subject=subject, text=text)
         # todo : show a success message
         contact_form = ContactForm()
+
+    setting = SiteSetting.objects.first()
     context = {
+        'setting' : setting ,
         'contact_form': contact_form
     }
     return render(request, 'contact_us/contact_us.html', context)
