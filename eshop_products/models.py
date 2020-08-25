@@ -52,7 +52,7 @@ class Product(models.Model):
         verbose_name = 'محصول'
 
     def thumbnail_pic(self):
-        return format_html(f'<img width=100 height=80 src={self.image.url} />')
+        return format_html(f"<img  width=120 height=100 style='border-radius : 20px;' src={self.image.url} />")
 
     thumbnail_pic.short_description = 'تصویر'
 
