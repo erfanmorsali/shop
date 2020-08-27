@@ -2,6 +2,8 @@ import itertools
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+
+from eshop_order.forms import UserAddOrder
 from .forms import CommentForm
 from .models import Product, ProductGallery, ProductComment
 from django.http import Http404
@@ -28,6 +30,7 @@ def my_grouper(n, iterable):
 
 def product_detail(request, *args, **kwargs):
     product_id = kwargs['product_id']
+    new_order_form = UserAddOrder(request.POST or None, initial={'productId' : product_id})
     slug = kwargs['slug']
     product = Product.objects.get_product_detail(product_id, slug)
 
@@ -45,10 +48,11 @@ def product_detail(request, *args, **kwargs):
         'product': product,
         'galeries': grouped_galeries,
         'related_products': grouped_related_products,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'new_order_form': new_order_form
     }
-
     if comment_form.is_valid():
+        print(comment_form.cleaned_data)
         full_name = comment_form.cleaned_data.get('full_name')
         email = comment_form.cleaned_data.get('email')
         message = comment_form.cleaned_data.get('message')
@@ -88,4 +92,3 @@ def product_categories_partial(request):
         'categories': categories
     }
     return render(request, 'products/product_categories_partial.html', context)
-

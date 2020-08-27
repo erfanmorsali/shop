@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} | {{ product.title }} {% endblock %}
 {% block content %}
-{% load render_partial %}
+    {% load render_partial %}
 
 
     <section>
@@ -22,10 +22,11 @@
                                 <div class="carousel-inner">
                                     {% for galery_list in galeries %}
                                         <div class="item {{ forloop.first | yesno:'active,' }}">
-                                        {% for product in galery_list %}
-                                            <a href=""><img style="width: 85px; height: 85px;" src="{{ product.image.url }}"
-                                                            alt=""></a>
-                                        {% endfor %}
+                                            {% for product in galery_list %}
+                                                <a href=""><img style="width: 85px; height: 85px;"
+                                                                src="{{ product.image.url }}"
+                                                                alt=""></a>
+                                            {% endfor %}
                                         </div>
                                     {% endfor %}
 
@@ -53,13 +54,17 @@
 										<span>{{ product.price }} تومان</span>
 									</span>
                                     <span>
-										<label>تعداد :</label>
-										<input type="text" value="3" class="search_box">
-										<button type="button" class="btn btn-fefault cart">
-											<i class="fa fa-shopping-cart"></i>
-											افـزودن به سبـد خریـد
-										</button>
-									</span>
+                                        <form action="/add-user-order" method="post">
+                                            {% csrf_token %}
+                                            {{ new_order_form.productId }}
+										    <label>تعداد :</label>
+                                            {{ new_order_form.count }}
+										    <button type="submit" class="btn btn-fefault cart">
+											    <i class="fa fa-shopping-cart"></i>
+											    افـزودن به سبـد خریـد
+										    </button>
+                                        </form>
+                                    </span>
                                 </div>
                                 <div>
                                     <p><b>موجـودی :</b> در انبـار موجود می باشد</p>
@@ -243,7 +248,7 @@
 
                                     <form action="#" method="post">
                                         {% csrf_token %}
-										{{ comment_form.full_name }}
+                                        {{ comment_form.full_name }}
                                         {% for error in comment_form.full_name.errors %}
                                             <p class="text-danger">{{ error }}</p>
                                         {% endfor %}
@@ -269,10 +274,10 @@
                             <div class="carousel-inner">
                                 {% for product_list in related_products %}
                                     <div class="item {{ forloop.first | yesno:'active,' }}">
-                                    {% for product in product_list %}
-                                        {% include 'component/product_box.html' with object=product %}
-                                    {% endfor %}
-                                </div>
+                                        {% for product in product_list %}
+                                            {% include 'component/product_box.html' with object=product %}
+                                        {% endfor %}
+                                    </div>
                                 {% endfor %}
                             </div>
                             <a class="left recommended-item-control" href="#recommended-item-carousel"

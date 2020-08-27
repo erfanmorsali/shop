@@ -50,6 +50,7 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'محصولات'
         verbose_name = 'محصول'
+        ordering = ['id']
 
     def thumbnail_pic(self):
         return format_html(f"<img  width=120 height=100 style='border-radius : 20px;' src={self.image.url} />")
