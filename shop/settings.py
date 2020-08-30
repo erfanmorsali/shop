@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'eshop_contact',
     'eshop_setting',
     'eshop_order',
+    'eshop_products_attrebute',
 ]
 
 MIDDLEWARE = [

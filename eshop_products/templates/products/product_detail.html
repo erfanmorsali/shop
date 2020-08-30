@@ -51,7 +51,7 @@
                                 </div>
                                 <div>
 									<span>
-										<span>{{ product.price }} تومان</span>
+										<span>قیمت : {{ product.price }} تومان</span>
 									</span>
                                     <span>
                                         <form action="/add-user-order" method="post">
@@ -59,6 +59,14 @@
                                             {{ new_order_form.productId }}
 										    <label>تعداد :</label>
                                             {{ new_order_form.count }}
+                                            <div>
+                                                <label>سایز :</label>
+                                                {{ new_order_form.size }}
+                                            </div>
+                                            <div>
+                                                <label>رنگ :</label>
+                                            {{ new_order_form.color }}
+                                            </div>
 										    <button type="submit" class="btn btn-fefault cart">
 											    <i class="fa fa-shopping-cart"></i>
 											    افـزودن به سبـد خریـد
@@ -68,7 +76,13 @@
                                 </div>
                                 <div>
                                     <p><b>موجـودی :</b> در انبـار موجود می باشد</p>
-                                    <p><b>شرایـط :</b> جدیـد</p>
+                                    </p>
+                                    <p><b>مدل های موجود :</b>
+                                    {% for size in product_attrs %}
+                                        {{ size }} ,
+                                    {% endfor %}
+                                    </p>
+
                                     <p><b>برنـد :</b> برنـد </p>
                                 </div>
                                 <span class="socials-share share">
@@ -124,7 +138,7 @@
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <img src="{% static 'images/home/gallery.jpg' %}" alt="">
-                                                <h2>1.250.000 ريال</h2>
+                                                <h2> 1.250.000 ريال</h2>
                                                 <p>توضیحات کوتاه محصول</p>
                                                 <button type="button" class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد

@@ -4,6 +4,7 @@ from .utils import unique_slug_generator
 from django.utils.html import format_html
 from django.db.models import Q
 from eshop_products_category.models import ProductCategory
+from eshop_products_attrebute.models import ProductAttribute
 
 
 # Create your models here.
@@ -37,6 +38,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
+    attribute = models.ManyToManyField(ProductAttribute, verbose_name='مشخصات')
     slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')

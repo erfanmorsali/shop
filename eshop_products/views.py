@@ -2,7 +2,7 @@ import itertools
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-
+from eshop_products_attrebute.models import ProductAttribute
 from eshop_order.forms import UserAddOrder
 from .forms import CommentForm
 from .models import Product, ProductGallery, ProductComment
@@ -30,9 +30,12 @@ def my_grouper(n, iterable):
 
 def product_detail(request, *args, **kwargs):
     product_id = kwargs['product_id']
-    new_order_form = UserAddOrder(request.POST or None, initial={'productId' : product_id})
     slug = kwargs['slug']
     product = Product.objects.get_product_detail(product_id, slug)
+    attribute = ProductAttribute.objects.filter(product=product)
+    product_attrs = [attr for attr in attribute]
+
+    new_order_form = UserAddOrder(request.POST or None, initial={'productId': product_id})
 
     if product is None:
         raise Http404('محصولی با این مشخصات یافت نشد')
@@ -49,7 +52,8 @@ def product_detail(request, *args, **kwargs):
         'galeries': grouped_galeries,
         'related_products': grouped_related_products,
         'comment_form': comment_form,
-        'new_order_form': new_order_form
+        'new_order_form': new_order_form,
+        'product_attrs': product_attrs
     }
     if comment_form.is_valid():
         print(comment_form.cleaned_data)

@@ -13,7 +13,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 class OrderDetailAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'order', 'price', 'count', 'is_send']
+    list_display = ['__str__', 'order', 'price', 'color', 'size', 'count', 'is_send']
     list_filter = ['is_send']
     list_editable = ['is_send']
 

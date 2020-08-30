@@ -7,13 +7,8 @@ from django.utils.translation import ngettext
 # Register your models here.
 
 
-
-
-
-
-
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'thumbnail_pic', 'price', 'slug', 'active']
+    list_display = ['__str__', 'thumbnail_pic', 'price', 'slug', 'active', ]
     list_filter = ('timestamp', 'active')
     search_fields = ('title', 'description')
     list_editable = ['active']

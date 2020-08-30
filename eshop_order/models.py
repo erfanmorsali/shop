@@ -21,6 +21,8 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='سبد خرید')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='محصول')
     price = models.IntegerField(verbose_name='قیمت محصول')
+    size = models.CharField(default='X',max_length=10,verbose_name='سایز')
+    color = models.CharField(default='آبی',max_length=50,verbose_name='رنگ')
     count = models.IntegerField(verbose_name='تعداد')
     is_send = models.BooleanField(default=False, verbose_name='ارسال شده / نشده')
 
