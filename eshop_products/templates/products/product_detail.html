@@ -13,7 +13,7 @@
                     <div class="product-details"><!--product-details-->
                         <div class="col-sm-5">
                             <div class="view-product">
-                                <img src="{{ product.image.url }}" alt="">
+                                <img style="border-radius: 30px" src="{{ product.image.url }}" alt="">
                                 <h3>بزرگنمایـی</h3>
                             </div>
                             <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -72,7 +72,15 @@
 											    افـزودن به سبـد خریـد
 										    </button>
                                         </form>
+                                        {% csrf_token %}
                                     </span>
+                                    <form method="post" action="{% url 'add_favourite_product' %}">
+                                        {% csrf_token %}
+                                        {{ UserFavouriteForm.productId }}
+                                    <button style="margin-right: 20px;padding-right: 30px;padding-left: 30px;padding-top: 10px;" type="submit" class="btn btn-info">
+											    افزودن به علاقه مندی ها
+                                    </button>
+                                    </form>
                                 </div>
                                 <div>
                                     <p><b>موجـودی :</b> در انبـار موجود می باشد</p>

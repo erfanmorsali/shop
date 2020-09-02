@@ -1,5 +1,5 @@
 import itertools
-
+from eshop_favourite_products.forms import UserFavouriteProductForm
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from eshop_products_attrebute.models import ProductAttribute
@@ -46,6 +46,8 @@ def product_detail(request, *args, **kwargs):
     related_products = Product.objects.get_queryset().filter(category__product=product).distinct()
     grouped_related_products = list(my_grouper(3, related_products))
 
+    UserFavouriteForm = UserFavouriteProductForm(request.POST or None, initial={'productId': product_id})
+
     comment_form = CommentForm(request.POST or None)
     context = {
         'product': product,
@@ -53,7 +55,8 @@ def product_detail(request, *args, **kwargs):
         'related_products': grouped_related_products,
         'comment_form': comment_form,
         'new_order_form': new_order_form,
-        'product_attrs': product_attrs
+        'product_attrs': product_attrs,
+        'UserFavouriteForm': UserFavouriteForm
     }
     if comment_form.is_valid():
         print(comment_form.cleaned_data)

@@ -1,0 +1,1 @@
+default_app_config = 'eshop_favourite_products.apps.EshopFavouriteProductsConfig'

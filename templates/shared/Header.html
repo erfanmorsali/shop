@@ -55,7 +55,7 @@
                                 {% else %}
                                  حساب کاربری
                             {% endif %} </a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> لیست علاقه مندی ها</a></li>
+                            <li><a href="{% url 'favourite-products' %}"><i class="fa fa-star"></i> لیست علاقه مندی ها</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> سبد خریـد</a></li>
                             {% if not request.user.is_authenticated %}
                                 <li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> ورود</a></li>
