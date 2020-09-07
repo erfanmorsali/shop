@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # myapps
     'eshop_products',
     'eshop_accounts',
-    'eshop_tags' ,
+    'eshop_tags',
     'eshop_products_category',
     'eshop_slider',
     'eshop_contact',

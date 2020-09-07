@@ -12,7 +12,7 @@ def header(request, *args, **kwargs):
 def footer(request):
     setting = SiteSetting.objects.first()
     context = {
-        'setting' : setting
+        'setting': setting
     }
     return render(request, 'shared/Footer.html', context)
 
@@ -23,3 +23,11 @@ def home_page(request):
         'sliders': sliders
     }
     return render(request, 'home_page.html', context)
+
+
+def about_us(request):
+    contents = SiteSetting.objects.all().last()
+    context = {
+        "contents": contents
+    }
+    return render(request, 'about_page.html', context)

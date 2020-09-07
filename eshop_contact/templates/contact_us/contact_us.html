@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %} | contact_us{% endblock %}
 {% block content %}
+    {% include 'contact_us/success_message.html' %}
     <div id="contact-page" class="container">
         <div class="bg">
             <div class="row">
@@ -9,7 +10,9 @@
                     <div class="col-sm-12" style="overflow: hidden; margin-bottom: 40px">
                         <h2 class="title text-center">تمـاس با مـا</h2>
                         <div id="gmap" class="contact-map">
-                            <img src="{% static 'images/home/Map.jpg' %}" alt="Map">
+                            <a target="_blank" href="https://www.google.com/maps/place/Tehran+Province,+Tehran,+Shahran+2nd+Square,+Iran/@35.7730434,51.2951588,225m/data=!3m1!1e3!4m5!3m4!1s0x3f8de334656676d1:0xd1447346cf75cd39!8m2!3d35.7655698!4d51.2886046">
+                                <img style="width: 100%;" src="{% static 'erfan/googlemap.png' %}" alt="Map">
+                            </a>
                         </div>
                     </div>
                 </div>

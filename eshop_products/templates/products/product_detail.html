@@ -1,9 +1,9 @@
 {% extends 'shared/Main_Layout.html' %}
 {% load static %}
 {% block title %} | {{ product.title }} {% endblock %}
+{% load render_partial %}
 {% block content %}
-    {% load render_partial %}
-
+    {% include 'products/order_success_message.html' %}
 
     <section>
         <div class="container">
@@ -72,23 +72,31 @@
 											    افـزودن به سبـد خریـد
 										    </button>
                                         </form>
-                                        {% csrf_token %}
+                                        {% if messages %}
+                                            <ul class="messages">
+                                                {% for message in messages %}
+                                                    <li{% if message.tags %}
+                                                        class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
                                     </span>
                                     <form method="post" action="{% url 'add_favourite_product' %}">
                                         {% csrf_token %}
                                         {{ UserFavouriteForm.productId }}
-                                    <button style="margin-right: 20px;padding-right: 30px;padding-left: 30px;padding-top: 10px;" type="submit" class="btn btn-info">
-											    افزودن به علاقه مندی ها
-                                    </button>
+                                        <button style="margin-right: 20px;padding-right: 30px;padding-left: 30px;padding-top: 10px;"
+                                                type="submit" class="btn btn-info">
+                                            افزودن به علاقه مندی ها
+                                        </button>
                                     </form>
                                 </div>
                                 <div>
                                     <p><b>موجـودی :</b> در انبـار موجود می باشد</p>
                                     </p>
                                     <p><b>مدل های موجود :</b>
-                                    {% for size in product_attrs %}
-                                        {{ size }} ,
-                                    {% endfor %}
+                                        {% for size in product_attrs %}
+                                            {{ size }} ,
+                                        {% endfor %}
                                     </p>
 
                                     <p><b>برنـد :</b> برنـد </p>

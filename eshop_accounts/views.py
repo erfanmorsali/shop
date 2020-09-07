@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
-from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth import login, authenticate, get_user_model, logout
+from django.contrib import messages
 
 
 # Create your views here.
@@ -10,8 +11,10 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect('/')
     form = LoginForm(request.POST or None)
+    message = messages.get_messages(request)
     context = {
-        'form': form
+        'form': form,
+        'messages' : message
     }
     if form.is_valid():
         username = form.cleaned_data.get('username')
@@ -43,5 +46,11 @@ def register_page(request):
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         newuser = User.objects.create_user(username=username, email=email, password=password)
+        messages.success(request, "ثبت نام شما با موفقیت انجام شد")
         return redirect('/login')
     return render(request, 'register.html', context)
+
+
+def log_out(request):
+    logout(request)
+    return redirect('/login')

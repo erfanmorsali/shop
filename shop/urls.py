@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
+from django.urls import path, include
 
-from .views import home_page , header , footer
+from .views import home_page, header, footer, about_us
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,12 +27,12 @@ urlpatterns = [
     path('', include('eshop_contact.urls')),
     path('', include('eshop_order.urls')),
     path('', include('eshop_favourite_products.urls')),
-    path('header', header , name='header'),
-    path('footer', footer , name='footer'),
-    path('', home_page , name='home_page'),
+    path('about_us/', about_us, name='about_us'),
+    path('header', header, name='header'),
+    path('footer', footer, name='footer'),
+    path('', home_page, name='home_page'),
     path('admin/', admin.site.urls),
 ]
-
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

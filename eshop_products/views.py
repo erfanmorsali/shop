@@ -8,7 +8,7 @@ from .forms import CommentForm
 from .models import Product, ProductGallery, ProductComment
 from django.http import Http404
 from eshop_products_category.models import ProductCategory
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -35,7 +35,7 @@ def product_detail(request, *args, **kwargs):
     attribute = ProductAttribute.objects.filter(product=product)
     product_attrs = [attr for attr in attribute]
 
-    new_order_form = UserAddOrder(request.POST or None, initial={'productId': product_id})
+    message = messages.get_messages(request)
 
     if product is None:
         raise Http404('محصولی با این مشخصات یافت نشد')
@@ -45,9 +45,8 @@ def product_detail(request, *args, **kwargs):
 
     related_products = Product.objects.get_queryset().filter(category__product=product).distinct()
     grouped_related_products = list(my_grouper(3, related_products))
-
+    new_order_form = UserAddOrder(request.POST or None, initial={'productId': product_id})
     UserFavouriteForm = UserFavouriteProductForm(request.POST or None, initial={'productId': product_id})
-
     comment_form = CommentForm(request.POST or None)
     context = {
         'product': product,
@@ -56,10 +55,10 @@ def product_detail(request, *args, **kwargs):
         'comment_form': comment_form,
         'new_order_form': new_order_form,
         'product_attrs': product_attrs,
-        'UserFavouriteForm': UserFavouriteForm
+        'UserFavouriteForm': UserFavouriteForm,
+        'messages' : message
     }
     if comment_form.is_valid():
-        print(comment_form.cleaned_data)
         full_name = comment_form.cleaned_data.get('full_name')
         email = comment_form.cleaned_data.get('email')
         message = comment_form.cleaned_data.get('message')

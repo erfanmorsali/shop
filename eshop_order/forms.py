@@ -2,7 +2,7 @@ from django import forms
 from eshop_products_attrebute.models import ProductAttribute
 from eshop_products.models import Product
 
-colors = [('قرمز', 'قرمز'), ('آبی', 'آبی'), ('زرد', 'زرذ'), ('صورتی', 'صورتی')]
+colors = [('قرمز', 'قرمز'), ('آبی', 'آبی'), ('زرد', 'زرذ'), ('صورتی', 'صورتی'), ('سیاه', 'سیاه')]
 sizes = [("X", "X"), ("XL", "XL"), ("XXL", "XXL"), ("XXXL", "XXXL"), ("L", "L")]
 
 

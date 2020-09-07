@@ -8,6 +8,7 @@ class SiteSetting(models.Model):
     address = models.CharField(max_length=200, verbose_name='آدرس شرکت')
     phone = models.CharField(max_length=50, verbose_name='شماره ی تماس')
     email = models.EmailField(max_length=50, verbose_name='ایمیل')
+    logo_image = models.ImageField(upload_to='logo/', null=True, blank=True, verbose_name='لوگوی شرکت')
     about_us = models.TextField(verbose_name='درباره ی ما')
     copy_right = models.TextField(verbose_name='متن کپی رایت')
 
