@@ -1,11 +1,44 @@
-<h2>دسته بندی محصولات</h2>
 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
     {% for category in categories %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="/products/{{ category.name }}">+ {{ category }} </a></h4>
+        {% if category.parent == None %}
+            <div class="panel panel-default">
+                {% if category.cheldren.all %}
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordian" href="#{{ category.name }}">
+                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                {{ category.title }}
+                            </a>
+                        </h4>
+                    </div>
+                {% else %}
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="{% url 'product_by_category' category_name=category.name %}">
+                                <span class="badge pull-right"><i></i></span>
+                                {{ category.title }}
+                            </a>
+                        </h4>
+                    </div>
+                {% endif %}
+                <div id="{{ category.name }}" class="panel-collapse collapse">
+                    {% if category.cheldren.all %}
+                        {% for child in category.cheldren.all %}
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'product_by_category' category_name=child.name %}">{{ child.title }} </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
-</div><!--/category-productsr-->
+
+</div>

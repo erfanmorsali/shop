@@ -22,6 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('social/', include('social_django.urls', namespace='social')),
     path('', include('eshop_products.urls')),
     path('', include('eshop_accounts.urls')),
     path('', include('eshop_contact.urls')),

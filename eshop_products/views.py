@@ -1,6 +1,6 @@
 import itertools
 from eshop_favourite_products.forms import UserFavouriteProductForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from eshop_products_attrebute.models import ProductAttribute
 from eshop_order.forms import UserAddOrder
@@ -28,6 +28,14 @@ def my_grouper(n, iterable):
     return ([e for e in t if e is not None] for t in itertools.zip_longest(*args))
 
 
+def like_post(request,pk):
+    product = Product.objects.get(id=pk)
+    if product is None:
+        return Http404("یافت نشد")
+    product.likes.add(request.user)
+    return redirect(f"/products/{product.id}/{product.slug}")
+
+
 def product_detail(request, *args, **kwargs):
     product_id = kwargs['product_id']
     slug = kwargs['slug']
@@ -35,7 +43,7 @@ def product_detail(request, *args, **kwargs):
     attribute = ProductAttribute.objects.filter(product=product)
     product_attrs = [attr for attr in attribute]
 
-    message = messages.get_messages(request)
+
 
     if product is None:
         raise Http404('محصولی با این مشخصات یافت نشد')
@@ -48,6 +56,15 @@ def product_detail(request, *args, **kwargs):
     new_order_form = UserAddOrder(request.POST or None, initial={'productId': product_id})
     UserFavouriteForm = UserFavouriteProductForm(request.POST or None, initial={'productId': product_id})
     comment_form = CommentForm(request.POST or None)
+
+    if comment_form.is_valid():
+        full_name = comment_form.cleaned_data.get('full_name')
+        email = comment_form.cleaned_data.get('email')
+        message = comment_form.cleaned_data.get('message')
+        ProductComment.objects.create(full_name=full_name, email=email, message=message, product=product)
+        messages.success(request,"نظر شما با موفقیت ثبت شد")
+
+    message = messages.get_messages(request)
     context = {
         'product': product,
         'galeries': grouped_galeries,
@@ -56,19 +73,15 @@ def product_detail(request, *args, **kwargs):
         'new_order_form': new_order_form,
         'product_attrs': product_attrs,
         'UserFavouriteForm': UserFavouriteForm,
-        'messages' : message
+        'messages' : message,
     }
-    if comment_form.is_valid():
-        full_name = comment_form.cleaned_data.get('full_name')
-        email = comment_form.cleaned_data.get('email')
-        message = comment_form.cleaned_data.get('message')
-        ProductComment.objects.create(full_name=full_name, email=email, message=message, product=product)
+
     return render(request, 'products/product_detail.html', context)
 
 
 class SearchProduct(ListView):
     template_name = 'products/product_list.html'
-    paginate_by = 6
+    paginate_by = 2
 
     def get_queryset(self):
         request = self.request

@@ -1,17 +1,22 @@
+{% load humanize %}
 <div class="col-sm-4">
     <div class="product-image-wrapper">
         <div class="single-products">
             <div class="productinfo text-center">
-                <img style="width: 90%; height: 250px ; border-radius: 30px;" src="{{ object.image.url }}" alt=""/>
+                <img style="width: 90%; height: 220px ; border-radius: 30px;" src="{{ object.image.url }}" alt=""/>
 
-                <h2>{{ object.price }} تومان </h2>
+                <h2 style="color: #12121c;font-size: large">{{ object.price | intcomma:False}} تومان </h2>
                 <p>{{ object.title }}</p>
 
 
             </div>
+            <div>
+               <span style="margin-right: 10px;margin-bottom: 15px;" class="glyphicon glyphicon-user" aria-hidden="true">مرسلی</span>
+
+            </div>
             <div class="product-overlay">
                 <div class="overlay-content">
-                    <h2>{{ object.price }}</h2>
+                    <h2>{{ object.price | intcomma:False }}</h2>
                     <p>{{ object.description | truncatewords:40 }}</p>
                     <a href="/" class="btn btn-default add-to-cart"><i
                             class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>

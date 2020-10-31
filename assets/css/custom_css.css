@@ -1,0 +1,16 @@
+.my_button{
+    margin-right: 19px;
+    padding-right: 24px;
+    padding-left: 23px;
+    padding-top: 5px;
+    background-color: #05cdf5;
+}
+.custome-category{
+    color: #545454;
+    font-size: 17px;
+}
+
+
+.custome-category:hover{
+    color: #00a2ff;
+}

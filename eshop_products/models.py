@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.db.models import Q
 from eshop_products_category.models import ProductCategory
 from eshop_products_attrebute.models import ProductAttribute
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -38,13 +38,18 @@ class Product(models.Model):
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to='products/', null=True, verbose_name='تصویر')
-    attribute = models.ManyToManyField(ProductAttribute, verbose_name='مشخصات')
+    attribute = models.ManyToManyField(ProductAttribute,blank=True, verbose_name='مشخصات')
     slug = models.SlugField(unique=True, verbose_name='شناسه')
     active = models.BooleanField(default=False, verbose_name='موجود / ناموجود')
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
     category = models.ManyToManyField(ProductCategory, blank=True, verbose_name='دسته بندی ها')
+    likes = models.ManyToManyField(User, blank=True,verbose_name="لایک ها")
 
     objects = ProductManager()
+
+
+    def like_count(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
@@ -83,7 +88,7 @@ class ProductGallery(models.Model):
 
 class ProductComment(models.Model):
     full_name = models.CharField(max_length=150, verbose_name='نام و نام خانوادگی')
-    email = models.EmailField(max_length=200, verbose_name='آدرس ایمیل شما')
+    email = models.EmailField(max_length=200, verbose_name='آدرس ایمیل ')
     message = models.TextField(verbose_name='نظر شما')
     is_read = models.BooleanField(default=False, verbose_name='خوانده شده / نشده')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, verbose_name='محصول')

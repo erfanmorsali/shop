@@ -20,16 +20,17 @@
                             {% for error in form.password.errors %}
                                 <p style="color: red">{{ error }}</p>
                             {% endfor %}
-
-                            <span>
-								<input type="checkbox" class="checkbox">
-								مرا بخاطـر بسپـار
-							</span>
                             <span>
 								<a href="forget-password.html">رمـز عبـور خود را فراموش کرده ام</a>
 							</span>
                             <button type="submit" class="btn btn-default">ورود</button>
+                            <a target="_blank" href="{% url 'social:begin' 'facebook' %}">sign in with facebook</a>
+                            <br>
+                            <a target="_blank" href="{% url 'social:begin' 'github' %}">sign in with github</a>
+
                         </form>
+                    
+                    
                     </div><!--/login form-->
                 </div>
 

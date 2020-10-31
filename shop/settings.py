@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'eshop_order',
     'eshop_products_attrebute',
     'eshop_favourite_products',
+    # third_party apps
+    'django.contrib.humanize',
+    'embed_video',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -108,6 +114,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = "3542572809141358"
+SOCIAL_AUTH_FACEBOOK_SECRET = "ec4e21b8843dbcd23ae51ea1964296ca"
+
+SOCIAL_AUTH_GITHUB_KEY = "2fbfef977484a3a613da"
+SOCIAL_AUTH_GITHUB_SECRET = "7ec839ac0d4584eb6d8afdabecee6ab0099e402c"
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -132,3 +151,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", 'media_root')
+
+
+LOGIN_REDIRECT_URL = "/"

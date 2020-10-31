@@ -6,7 +6,7 @@ from .models import ProductCategory
 
 
 class ProductCategoryAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'name']
+    list_display = ['__str__', 'name', 'parent']
 
     class Meta:
         Model = ProductCategory

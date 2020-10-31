@@ -1,10 +1,13 @@
 {% extends 'shared/Main_Layout.html' %}
+{% load humanize %}
 {% load static %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/custom_css.css' %}">
+{% endblock %}
 {% block title %} | {{ product.title }} {% endblock %}
 {% load render_partial %}
 {% block content %}
     {% include 'products/order_success_message.html' %}
-
     <section>
         <div class="container">
             <div class="row">
@@ -50,9 +53,10 @@
                                     <p>شناسـه : 0110110</p>
                                 </div>
                                 <div>
-									<span>
-										<span>قیمت : {{ product.price }} تومان</span>
-									</span>
+									<p style="font-size: 25px;color: #1e2f38">قیمت :
+                                        <span style="color: #c25b08">{{ product.price |intcomma:False }} </span>
+                                        <span style="color: #c25b08; font-size: 18px;">تومان</span>
+                                    </p>
                                     <span>
                                         <form action="/add-user-order" method="post">
                                             {% csrf_token %}
@@ -84,9 +88,9 @@
                                     <form method="post" action="{% url 'add_favourite_product' %}">
                                         {% csrf_token %}
                                         {{ UserFavouriteForm.productId }}
-                                        <button style="margin-right: 20px;padding-right: 30px;padding-left: 30px;padding-top: 10px;"
-                                                type="submit" class="btn btn-info">
-                                            افزودن به علاقه مندی ها
+                                        <button
+                                                type="submit" class="btn btn-info my_button">
+                                            <span class="glyphicon glyphicon-heart"></span>افزودن به علاقه مندی ها
                                         </button>
                                     </form>
                                 </div>
@@ -101,29 +105,8 @@
 
                                     <p><b>برنـد :</b> برنـد </p>
                                 </div>
-                                <span class="socials-share share">
-									<ul>
-										<a href="#">
-											<li>
-												<label>بلـه</label>
-												<img src="{% static 'images/product-details/Bale.png' %}">
-											</li>
-										</a>
-										<a href="#">
-											<li>
-												<label>سـروش</label>
-												<img src="{% static 'images/product-details/Soroush.png' %}">
-											</li>
-										</a>
-										<a href="#">
-											<li>
-												<label>اینستاگرام</label>
-												<img src="{% static 'images/product-details/Instagram.png' %}">
-											</li>
-										</a>
-										<li><img src="{% static 'images/product-details/rating.png' %}" alt=""></li>
-									</ul>
-								</span>
+                                <a class="btn btn-primary btn-sm" href="{% url 'like_post' pk=product.id %}">like</a>
+                                <p>{{ product.like_count }}</p>
 
                             </div><!--/product-information-->
                         </div>
